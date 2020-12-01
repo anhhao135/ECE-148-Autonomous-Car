@@ -6,6 +6,8 @@ from adafruit_servokit import ServoKit
 #more documentation at https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython
 # kit.servo[1].set_pulse_width_range(1000, 2000) ; use this to set the calibration min and max pwms, but by default its pretty spot on for our car
 
+#steering servo is on channel 1
+
 
 kit = ServoKit(channels = 16)
 
