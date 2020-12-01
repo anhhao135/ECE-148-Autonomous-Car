@@ -14,7 +14,7 @@ kit = ServoKit(channels = 16)
 
 def callback(data): #called everytime topic is updated
     rospy.loginfo(data.data) # just for debug
-    kit.servo[0].angle = data.data # throttle takes values from -1 to 1; this is very sensitive so keep it below 0.2
+    kit.continuous_servo[0].throttle = data.data # throttle takes values from -1 to 1; this is very sensitive so keep it below 0.2
 
 
 def listener():
