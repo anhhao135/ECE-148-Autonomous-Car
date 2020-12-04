@@ -25,7 +25,7 @@ def talker():
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
-        '''
+
 
         #construct msg
         rgb = Image()
@@ -36,7 +36,6 @@ def talker():
 
         rospy.loginfo(rgb)
         pub.publish(rgb)
-        '''
         rate.sleep()
 
 if __name__ == '__main__':
