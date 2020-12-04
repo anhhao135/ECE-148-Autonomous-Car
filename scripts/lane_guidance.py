@@ -75,7 +75,8 @@ class LineFollower(object):
 			mid_y = int(0.5 * (cy_list[0] + cy_list[1]))
 			cv2.circle(cv_image, (mid_x, mid_y), 7, (255, 0, 0), -1)
 		except:
-			mid_y, mid_x = height / 2, width / 2
+			#mid_y, mid_x = height / 2, width / 2
+			throttle_float.data = 0.3 #stop if cannot locate 2 lines
 
 		# plotting results
 		cv2.imshow("res_yellow", res_yellow)
