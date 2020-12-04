@@ -1,4 +1,5 @@
 <launch>
   <node name="steering_client" pkg="potatoinside" type="steering_client.py" />
   <node name="throttle_client" pkg="potatoinside" type="throttle_client.py" />
+  <node name="camera_server" pkg="potatoinside" type="camera_server.py" />
 </launch>

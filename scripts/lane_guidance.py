@@ -16,7 +16,7 @@ class LineFollower(object):
 	def __init__(self):
 
 		self.bridge_object = CvBridge()
-		self.image_sub = rospy.Subscriber("camera_server", Image, self.camera_callback)
+		self.image_sub = rospy.Subscriber("camera_rgb", Image, self.camera_callback)
 
 	def camera_callback(self, data):
 

@@ -40,10 +40,11 @@ def talker():
         rgb = Image()
         rgb.width = width
         rgb.height = height
+        rgb.data = flattened_rgb
 
 
-        rospy.loginfo(hello_str)
-        pub.publish(hello_str)
+        rospy.loginfo(rgb)
+        pub.publish(rgb)
         rate.sleep()
 
 if __name__ == '__main__':
