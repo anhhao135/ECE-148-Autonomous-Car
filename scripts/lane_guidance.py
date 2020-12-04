@@ -35,8 +35,8 @@ class LineFollower(object):
 		hsv2 = cv2.cvtColor(cv_image, cv2.COLOR_BGR2HSV)
 
 		# creating mask
-		lower_yellow = np.array([20, 100, 100])
-		upper_yellow = np.array([50, 255, 255])
+		lower_yellow = np.array([0, 0, 0])
+		upper_yellow = np.array([0, 0, 255])
 
 		mask_yellow = cv2.inRange(hsv2, lower_yellow, upper_yellow)
 		res_yellow = cv2.bitwise_and(cv_image, cv_image, mask=mask_yellow)
