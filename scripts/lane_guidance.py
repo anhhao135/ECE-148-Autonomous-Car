@@ -89,8 +89,9 @@ class LineFollower(object):
 
 
         rospy.loginfo("mid_x = "+str(mid_x))
+		rospy.rosout
 
-		throttle_float.data = 0.3 #constant throttle
+		throttle_float.data = 1.0 #constant throttle
 		steering_float.data = -error_x / 100 #normalized steering float from -1 to 1
 
 	def clean_up(self):
