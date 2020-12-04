@@ -7,7 +7,7 @@ from cv_bridge import CvBridge
 
 cap = cv2.VideoCapture(0)
 
-camera_frequency = 20 # 20Hz
+camera_frequency = 10 # 20Hz
 
 def talker():
     pub = rospy.Publisher('camera_rgb', Image, queue_size=10)
@@ -17,11 +17,6 @@ def talker():
 
     while not rospy.is_shutdown():
         ret, frame = cap.read()
-        print("hello")
-        cv2.imshow('frame', frame)
-
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
 
 
 
