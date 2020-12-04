@@ -3,7 +3,7 @@ import rospy
 from sensor_msgs.msg import Image
 import cv2
 import numpy as np
-
+from cv_bridge import CvBridge
 
 cap = cv2.VideoCapture(0)
 
@@ -19,21 +19,15 @@ def talker():
         ret, frame = cap.read()
         print("hello")
         cv2.imshow('frame', frame)
-        height = frame.shape[0]
-        width = frame.shape[1]
-        flattened_rgb = frame.flatten()
+
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
 
 
         #construct msg
-        rgb = Image()
-        rgb.width = width
-        rgb.height = height
-        rgb.data = flattened_rgb
-
-
+        bridge = CvBridge()
+        rgb = bridge.cv2_to_imgmsg(frame, encoding="passthrough")
         rospy.loginfo(rgb)
         pub.publish(rgb)
         rate.sleep()
