@@ -5,7 +5,7 @@ from cv_bridge import CvBridge, CvBridgeError
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Image
 from std_msgs.msg import 
-from move_robot import MoveCar
+#from move_robot import MoveCar
 
 
 class LineFollower(object):
@@ -14,7 +14,7 @@ class LineFollower(object):
 
 		self.bridge_object = CvBridge()
 		self.image_sub = rospy.Subscriber("/camera/rgb/image_raw", Image, self.camera_callback)
-		self.MoveCar_object = MoveCar()
+		#self.MoveCar_object = MoveCar()
 
 	def camera_callback(self, data):
 
@@ -88,10 +88,10 @@ class LineFollower(object):
         Float32_object.angular.z = -error_x / 100;
         
         # Make it start turning
-        self.MoveCar_object.move_robot(Float32_object)
+        #self.MoveCar_object.move_robot(Float32_object)
 
 	def clean_up(self):
-		self.MoveCar_object.clean_class()
+		#self.MoveCar_object.clean_class()
 		cv2.destroyAllWindows()
 
 
