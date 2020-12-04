@@ -78,10 +78,10 @@ class LineFollower(object):
 			throttle_float.data = 0.0 #stop if cannot locate 2 lines
 
 		# plotting results
-		cv2.imshow("res_yellow", res_yellow)
+		#cv2.imshow("res_yellow", res_yellow)
 		cv2.imshow("cv_image", cv_image)
-		cv2.imshow("blurred", blurred)
-		cv2.imshow("original", original)
+		#cv2.imshow("blurred", blurred)
+		#cv2.imshow("original", original)
 		cv2.waitKey(1)
 
 		error_x = mid_x - width / 2
