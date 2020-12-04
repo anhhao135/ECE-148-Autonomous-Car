@@ -12,9 +12,11 @@ from adafruit_servokit import ServoKit
 kit = ServoKit(channels = 16)
 
 
+throttle_scale = 0.14 #scale down sensitive throttle
+
 def callback(data): #called everytime topic is updated
     rospy.loginfo(data.data) # just for debug
-    kit.continuous_servo[0].throttle = data.data # throttle takes values from -1 to 1; this is very sensitive so keep it below 0.2
+    kit.continuous_servo[0].throttle = data.data * throttle_scale # throttle takes values from -1 to 1; this is very sensitive so keep it below 0.2
 
 
 def listener():
