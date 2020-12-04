@@ -22,6 +22,8 @@ def talker():
         height = frame.shape[0]
         width = frame.shape[1]
         flattened_rgb = frame.flatten()
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
 
         '''
 
