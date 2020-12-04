@@ -8,13 +8,15 @@ from std_msgs.msg import
 from move_robot import MoveCar
 
 
+steering_float = Float32()
+throttle_float = Float32()
+
 class LineFollower(object):
 
 	def __init__(self):
 
 		self.bridge_object = CvBridge()
 		self.image_sub = rospy.Subscriber("/camera/rgb/image_raw", Image, self.camera_callback)
-		self.MoveCar_object = MoveCar()
 
 	def camera_callback(self, data):
 
@@ -81,17 +83,15 @@ class LineFollower(object):
 		cv2.imshow("original", original)
 		cv2.waitKey(1)
 
-		error_x = (mid_x) - width / 2;
-        rospy.loginfo("mid_x = "+str(mid_x))  
-        Float32_object = Float32();
-        Float32_object.linear.x = 0.3;
-        Float32_object.angular.z = -error_x / 100;
-        
-        # Make it start turning
-        self.MoveCar_object.move_robot(Float32_object)
+		error_x = mid_x - width / 2
+
+
+        rospy.loginfo("mid_x = "+str(mid_x))
+
+		throttle_float.data = 0.3 #constant throttle
+		steering_float.data = -error_x / 100 #normalized steering float from -1 to 1
 
 	def clean_up(self):
-		self.MoveCar_object.clean_class()
 		cv2.destroyAllWindows()
 
 
@@ -99,9 +99,13 @@ def main():
 	rospy.init_node('line_following_node', anonymous=True)
 
 	line_follower_object = LineFollower()
+
 	steering_pub = rospy.Publisher('steering', Float32, queue_size=1)
+	throttle_pub = rospy.Publisher('throttle', Float32, queue_size=1) #set up publishers
+
+
 	steering_pub.publish(Float32_object.angular.z)
-	throttle_pub = rospy.Publisher('throttle', Float32, queue_size=1)
+
 	throttle_pub.publish(Float32_object.angular.x)
 
 
@@ -112,7 +116,6 @@ def main():
 		# works better than the rospy.is_shut_down()
 		line_follower_object.clean_up()
 		rospy.loginfo("shutdown time!")
-		twist_object.linear.x = 0.0;
 		ctrl_c = True
 
 	rospy.on_shutdown(shutdownhook)
