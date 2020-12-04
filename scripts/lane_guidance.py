@@ -5,7 +5,7 @@ from cv_bridge import CvBridge, CvBridgeError
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Image
 from std_msgs.msg import 
-from move_robot import MoveKobuki
+from move_robot import MoveCar
 
 
 class LineFollower(object):
@@ -14,7 +14,7 @@ class LineFollower(object):
 
 		self.bridge_object = CvBridge()
 		self.image_sub = rospy.Subscriber("/camera/rgb/image_raw", Image, self.camera_callback)
-		self.movekobuki_object = MoveKobuki()
+		self.MoveCar_object = MoveCar()
 
 	def camera_callback(self, data):
 
@@ -81,18 +81,17 @@ class LineFollower(object):
 		cv2.imshow("original", original)
 		cv2.waitKey(1)
 
-		# steering and throttle control
 		error_x = (mid_x) - width / 2;
-		rospy.loginfo("mid_x = " + str(mid_x))
-		twist_object = Twist();
-		twist_object.linear.x = 0.3;
-		twist_object.angular.z = -error_x / 100;
-
-		# Make it start turning
-		self.movekobuki_object.move_robot(twist_object)
+        rospy.loginfo("mid_x = "+str(mid_x))  
+        Float32_object = Float32();
+        Float32_object.linear.x = 0.3;
+        Float32_object.angular.z = -error_x / 100;
+        
+        # Make it start turning
+        self.MoveCar_object.move_robot(Float32_object)
 
 	def clean_up(self):
-		self.movekobuki_object.clean_class()
+		self.MoveCar_object.clean_class()
 		cv2.destroyAllWindows()
 
 
@@ -100,6 +99,11 @@ def main():
 	rospy.init_node('line_following_node', anonymous=True)
 
 	line_follower_object = LineFollower()
+	steering_pub = rospy.Publisher('steering', Float32, queue_size=1)
+	steering_pub.publish(Float32_object.angular.z)
+	throttle_pub = rospy.Publisher('throttle', Float32, queue_size=1)
+	throttle_pub.publish(Float32_object.angular.x)
+
 
 	rate = rospy.Rate(5)
 	ctrl_c = False
