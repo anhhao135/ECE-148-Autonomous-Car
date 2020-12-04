@@ -4,8 +4,8 @@ import numpy as np
 from cv_bridge import CvBridge, CvBridgeError
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import Image
-from std_msgs.msg import 
-from move_robot import MoveCar
+from std_msgs.msg import
+#from move_robot import MoveCar
 
 
 steering_float = Float32()
@@ -16,7 +16,8 @@ class LineFollower(object):
 	def __init__(self):
 
 		self.bridge_object = CvBridge()
-		self.image_sub = rospy.Subscriber("/camera/rgb/image_raw", Image, self.camera_callback)
+		self.image_sub = rospy.Subscriber("camera_server", Image, self.camera_callback)
+		#self.MoveCar_object = MoveCar()
 
 	def camera_callback(self, data):
 
