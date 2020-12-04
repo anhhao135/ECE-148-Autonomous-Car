@@ -17,7 +17,6 @@ class LineFollower(object):
 
 		self.bridge_object = CvBridge()
 		self.image_sub = rospy.Subscriber("camera_server", Image, self.camera_callback)
-		#self.MoveCar_object = MoveCar()
 
 	def camera_callback(self, data):
 
@@ -90,7 +89,7 @@ class LineFollower(object):
 
         rospy.loginfo("mid_x = "+str(mid_x))
 
-		throttle_float.data = 0.3 #constant throttle
+		throttle_float.data = 1 #constant throttle
 		steering_float.data = -error_x / 100 #normalized steering float from -1 to 1
 
 	def clean_up(self):
@@ -106,9 +105,8 @@ def main():
 	throttle_pub = rospy.Publisher('throttle', Float32, queue_size=1) #set up publishers
 
 
-	steering_pub.publish(Float32_object.angular.z)
-
-	throttle_pub.publish(Float32_object.angular.x)
+	steering_pub.publish(steering_float)
+	throttle_pub.publish(throttle_float)
 
 
 	rate = rospy.Rate(5)
