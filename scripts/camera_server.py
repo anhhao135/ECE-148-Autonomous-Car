@@ -23,7 +23,6 @@ def talker():
         #construct msg
         bridge = CvBridge()
         rgb = bridge.cv2_to_imgmsg(frame)
-        rospy.loginfo(rgb)
         pub.publish(rgb)
         rate.sleep()
 
