@@ -9,17 +9,29 @@ from sensor_msgs.msg import Image
 
 
 
-
+def decodeImage(data, height, width):
+    decoded = np.fromstring(data, dtype=np.uint8)
+    decoded = decoded.reshape((height, width, 3))
+    return decoded
 
 def callback(data):
-    #frame = bridge_object.imgmsg_to_cv2(data)
+    frame = decodeImage(data.data, data.height, data.width)
     #print(type(frame))
-    print(type(data))
-    print(len(data.data))
+    #print(frame.shape)
+    #print(frame)
+    cv2.imshow("name", frame)
+    cv2.waitKey(1)
+    print("loop")
 
 
-bridge_object = CvBridge()
-rospy.init_node('cv_bridge_test_node', anonymous=True)
-image_sub = rospy.Subscriber("camera_rgb", Image, callback)
-rospy.spin()
+
+try:
+
+    #bridge_object = CvBridge()
+    rospy.init_node('cv_bridge_test_node', anonymous=True)
+    image_sub = rospy.Subscriber("camera_rgb", Image, callback)
+    rospy.spin()
+
+except KeyboardInterrupt:
+    cv2.destroyAllWindows()
 
