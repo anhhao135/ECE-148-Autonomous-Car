@@ -14,6 +14,7 @@ def callback(data):
 
 
 bridge_object = CvBridge()
+rospy.init_node('cv_bridge_test_node', anonymous=True)
 image_sub = rospy.Subscriber("camera_rgb", Image, callback)
 rospy.spin()
 
