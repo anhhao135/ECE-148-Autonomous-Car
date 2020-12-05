@@ -7,7 +7,14 @@ from decoder import decodeImage
 
 
 def callback(data):
+    #before we would put:
+    #frame = bridge_object.imgmsg_to_cv2(data, desired_encoding="bgr8")
+    #but imgmsg_to_cv2 function throws error on our environment
+    #too much to fix so i just made the decode function from scratch its not that much anyways
+    #so import it as shown above in your line detection stuff to decode the camera_rgb messages
+    
     frame = decodeImage(data.data, data.height, data.width) #take in data.data, with the height and width, and spit out a cv-workable np array
+
     #print(type(frame))
     #print(frame.shape)
     #print(frame)
