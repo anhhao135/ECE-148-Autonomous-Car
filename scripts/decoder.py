@@ -1,4 +1,5 @@
-#!/usr/bin/env python
+import numpy as np
+
 
 def decodeImage(data, height, width): #function to replace self.bridge_object.imgmsg_to_cv2(data, desired_encoding="bgr8")
     decoded = np.fromstring(data, dtype=np.uint8)
