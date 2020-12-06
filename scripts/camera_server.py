@@ -5,22 +5,24 @@ import cv2
 import numpy as np
 from cv_bridge import CvBridge
 
-cap = cv2.VideoCapture(0)
+NODE_NAME = 'camera_server'
+PUBLISHER_NAME = 'camera_rgb'
 
-camera_frequency = 10 # 20Hz
+cv2_video_capture = cv2.VideoCapture(0)
+
+CAMERA_FREQUENCY = 10 # 20Hz
+
 
 def talker():
-    pub = rospy.Publisher('camera_rgb', Image, queue_size=10)
-    rospy.init_node('camera_server', anonymous=True)
-    rate = rospy.Rate(camera_frequency)
+    pub = rospy.Publisher(PUBLISHER_NAME, Image, queue_size=10)
+    rospy.init_node(NODE_NAME, anonymous=True)
+    rate = rospy.Rate(CAMERA_FREQUENCY)
 
 
     while not rospy.is_shutdown():
-        ret, frame = cap.read()
+        ret, frame = cv2_video_capture.read()
 
-
-
-        #construct msg
+        # construct msg
         bridge = CvBridge()
         rgb = bridge.cv2_to_imgmsg(frame)
         pub.publish(rgb)

@@ -9,6 +9,7 @@ global steering_float, throttle_float
 steering_float = Float32()
 throttle_float = Float32()
 
+
 def LineFollower(msg):
     global steering_float, throttle_float
     steering_float = Float32()
@@ -18,13 +19,13 @@ def LineFollower(msg):
         error_x = 0
     else:
         error_x = float((msg.data) - width / 2)
-        
+
     # rospy.loginfo("mid_x = "+str(msg.data))
     throttle_float = 0.3
-    steering_float  = float(-error_x / 100)
+    steering_float = float(-error_x / 100)
     return steering_float, throttle_float
-      
-        
+
+
 def main():
     rospy.init_node('line_following_node1', anonymous=True)
     centroid_subscriber = rospy.Subscriber('/centroid', Int32, LineFollower)
@@ -35,7 +36,7 @@ def main():
         steering_pub.publish(steering_float)
         throttle_pub.publish(throttle_float)
         rate.sleep()
-    
+
+
 if __name__ == '__main__':
     main()
-    
