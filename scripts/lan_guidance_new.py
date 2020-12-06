@@ -22,7 +22,7 @@ def LineFollower(msg):
 
     # rospy.loginfo("mid_x = "+str(msg.data))
     throttle_float = 0.3
-    steering_float = float(-error_x / 100)
+    steering_float = float(-error_x / 300)
     return steering_float, throttle_float
 
 
