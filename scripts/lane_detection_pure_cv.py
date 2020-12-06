@@ -4,11 +4,11 @@ import cv2
 import numpy as np
 from std_msgs.msg import Float32
 
-from steering_client import STEERING_SUBSCRIBER_NAME
-from throttle_client import THROTTLE_SUBSCRIBER_NAME
+from steering_client import STEERING_TOPIC_NAME
+from throttle_client import THROTTLE_TOPIC_NAME
 
-steering_pub = rospy.Publisher(STEERING_SUBSCRIBER_NAME, Float32, queue_size=1)
-throttle_pub = rospy.Publisher(THROTTLE_SUBSCRIBER_NAME, Float32, queue_size=1)
+steering_pub = rospy.Publisher(STEERING_TOPIC_NAME, Float32, queue_size=1)
+throttle_pub = rospy.Publisher(THROTTLE_TOPIC_NAME, Float32, queue_size=1)
 
 cap = cv2.VideoCapture(0)
 rate = rospy.Rate(2)

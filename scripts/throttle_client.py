@@ -4,7 +4,7 @@ from std_msgs.msg import Float32
 from adafruit_servokit import ServoKit
 
 THROTTLE_NODE_NAME = 'throttle_client'
-THROTTLE_SUBSCRIBER_NAME = 'throttle'
+THROTTLE_TOPIC_NAME = 'throttle'
 
 # more documentation at https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython
 
@@ -28,7 +28,7 @@ def listener():
     # name for our 'listener' node so that multiple listeners can
     # run simultaneously.
     rospy.init_node(THROTTLE_NODE_NAME, anonymous=True)
-    rospy.Subscriber(THROTTLE_SUBSCRIBER_NAME, Float32, callback)
+    rospy.Subscriber(THROTTLE_TOPIC_NAME, Float32, callback)
     rospy.spin()   # spin() simply keeps python from exiting until this node is stopped
 
 

@@ -4,7 +4,7 @@ from std_msgs.msg import Float32
 from adafruit_servokit import ServoKit
 
 STEERING_NODE_NAME = 'steering_client'
-STEERING_SUBSCRIBER_NAME = 'steering'
+STEERING_TOPIC_NAME = 'steering'
 
 # more documentation at https://learn.adafruit.com/16-channel-pwm-servo-driver/python-circuitpython
 # kit.servo[1].set_pulse_width_range(1000, 2000) ; use this to set the calibration min and max pwms, but by default its pretty spot on for our car
@@ -28,7 +28,7 @@ def listener():
     # name for our 'listener' node so that multiple listeners can
     # run simultaneously.
     rospy.init_node(STEERING_NODE_NAME, anonymous=True)
-    rospy.Subscriber(STEERING_SUBSCRIBER_NAME, Float32, callback)
+    rospy.Subscriber(STEERING_TOPIC_NAME, Float32, callback)
     rospy.spin()   # spin() simply keeps python from exiting until this node is stopped
 
 if __name__ == '__main__':
