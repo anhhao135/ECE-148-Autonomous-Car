@@ -2,11 +2,11 @@
 import rospy
 import cv2
 import numpy as np
-from std_msgs.msg import Int32
+from std_msgs.msg import Float32
 from sensor_msgs.msg import Image
 
-global mid_x
-mid_x = Int32()
+global mid_x = float32()
+global mid_y = float32()
 
 
 def video_detection(data):
@@ -72,28 +72,29 @@ def video_detection(data):
             cy_list.append(int(m['m01'] / m['m00']))
             cv2.circle(img, (cx, cy), 7, (0, 255, 0), -1)
     # print(centers)
+
     try:
-        mid_x = int(0.5 * (cx_list[0] + cx_list[1]))
-        mid_y = int(0.5 * (cy_list[0] + cy_list[1]))
-        cv2.circle(img, (mid_x, mid_y), 7, (255, 0, 0), -1)
+        mid_x.data = int(0.5 * (cx_list[0] + cx_list[1]))
+        mid_y.data = int(0.5 * (cy_list[0] + cy_list[1]))
+        cv2.circle(img, (mid_x.data, mid_y.data), 7, (255, 0, 0), -1)
         # print(mid_x)
     except:
         pass
 
     if (len(cx_list) == 0):
-        mid_x = 0
+        mid_x.data = 0
+
     elif (len(cx_list) == 1):
-        mid_x = (cx_list[0])
-        mid_y = cy_list[0]
-        cv2.circle(img, (mid_x, mid_y), 7, (255, 0, 0), -1)
+        mid_x.data = (cx_list[0])
+        mid_y.data = cy_list[0]
+        cv2.circle(img, (mid_x.data, mid_y.data), 7, (255, 0, 0), -1)
 
     # plotting results
     cv2.imshow("original", orig)
     cv2.imshow("dilation", dilation)
     cv2.imshow("blackAndWhiteImage", blackAndWhiteImage)
     cv2.imshow("contours_img", img)
-    cv2.waitKey(100)
-    cap.release()
+    cv2.waitKey(1)
 
 
 def main():
@@ -105,7 +106,7 @@ def main():
         # print(mid_x)
         try:
             # print("the dist is ", mid_x)
-            pub = rospy.Publisher('/centroid', Int32, queue_size=1)
+            pub = rospy.Publisher('/centroid', Float32, queue_size=1)
             pub.publish(mid_x)
 
         except KeyboardInterrupt:
