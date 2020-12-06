@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 from std_msgs.msg import Int32
 from sensor_msgs.msg import Image
+from decoder import decodeImage
 
 global mid_x = Int32()
 global mid_y = Int32()
