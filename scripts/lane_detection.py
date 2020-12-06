@@ -2,11 +2,11 @@
 import rospy
 import cv2
 import numpy as np
-from std_msgs.msg import Float32
+from std_msgs.msg import Int32
 from sensor_msgs.msg import Image
 
-global mid_x = float32()
-global mid_y = float32()
+global mid_x = Int32()
+global mid_y = Int32()
 
 
 def video_detection(data):
