@@ -14,6 +14,8 @@ THROTTLE_TOPIC_NAME = 'throttle'
 
 kit = ServoKit(channels=16)
 
+global max_throttle, neutral_throttle, reverse
+
 throttle_scale = 0.2  # scale down sensitive throttle
 
 
@@ -45,14 +47,12 @@ def calibration_values(): #used to retrieve the calibrated throttle values
     json_path = os.path.join(parent_path, 'json_files', 'car_config.json')
     f = open(json_path,"r") #open the car configuration file to get the most recent steering calibration values
     data = json.load(f)
-    #assign the throttle values to global variables to be used by the throttle client script
-    global max_throttle
+    #assign the throttle values to be used by the throttle client script
     max_throttle = data['max_throttle']
-    global neutral_throttle
     neutral_throttle = data['neutral_throttle']
-    global reverse
     reverse = data['reverse']
 
 if __name__ == '__main__':
     calibration_values() #call calibration values first to load the values into the throttle client
+    time.sleep(1) #pause 1s to allow the values to be loaded by the calibration_values function
     listener()
