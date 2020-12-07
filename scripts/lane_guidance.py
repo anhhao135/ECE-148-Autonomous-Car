@@ -34,7 +34,7 @@ def main():
     centroid_subscriber = rospy.Subscriber('/centroid', Int32, LineFollower)
     steering_pub = rospy.Publisher('steering', Float32, queue_size=1)
     throttle_pub = rospy.Publisher('throttle', Float32, queue_size=1)
-    rate = rospy.Rate(2)
+    rate = rospy.Rate(20)
     while not rospy.is_shutdown():
         steering_pub.publish(steering_float)
         throttle_pub.publish(throttle_float)
