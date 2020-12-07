@@ -14,7 +14,7 @@ def LineFollower(msg):
     global steering_float, throttle_float
     steering_float = Float32()
     throttle_float = Float32()
-    width = 600
+    width = 400
     if (msg.data == 0):
         error_x = 0
         throttle_float = 0.1
@@ -26,7 +26,6 @@ def LineFollower(msg):
     # rospy.loginfo("mid_x = "+str(msg.data))
     
     steering_float = float(-error_x / 400)
-    return steering_float, throttle_float
 
 
 def main():
