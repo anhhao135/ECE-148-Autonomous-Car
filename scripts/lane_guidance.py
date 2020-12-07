@@ -24,16 +24,15 @@ def LineFollower(msg):
         error_x = float((msg.data) - width / 2)
         throttle_float = 0.4
 
-    if (error_x < -1):
-        error_x =-1
-    elif (error_x > 1):
-        error_x = 1
-    else:
-        pass
-
     # rospy.loginfo("mid_x = "+str(msg.data))
     
     steering_float = float(K * (error_x / 200))
+    if (steering_float < -1):
+        steering_float =-1
+    elif (steering_float > 1):
+        steering_float = 1
+    else:
+        pass
 
 
 def main():
