@@ -28,10 +28,10 @@ abs_max_right = [2000,'n']
 abs_max_left = [1000,'n']
 
 neutral_throttle = [0.0,'n'] 
-max_throttle = [0.2,'n']
+max_throttle = [0.1,'n']
 reverse = [-0.5,'n']
 
-pause = .1 #number of seconds to pause for the input values to change the motor/servo values
+pause = 2 #number of seconds to pause for the input values to change the motor/servo values
 
 #start by finding the absolute maximum and minimum steering positions via pwm width values
 #kit.servo[1].set_pulse_width_range(abs_max_left[0],abs_max_right[0])
@@ -46,13 +46,12 @@ while max_right[1] == 'n':
     kit.servo[1].angle = max_right[0] #publish the steering value to the car to observe the steering angle
     time.sleep(pause) #pause for "pause" seconds to allow the servo to move
     max_right[1] = input('Do you want to store this value as the maximum right steering angle? y/n')
-    if max_right[1] == 'y':
+    if max_right[1] = 'y':
         print('The maximum right steering angle has been set to: ',max_right[0])
         kit.servo[1].angle = 90 #set steering back to straight
         break
-    elif max_right[1] != 'y' or max_right[1] != 'n':
-        kit.servo[1].angle = 90 #set steering back to straight
-        while max_right[1] != 'y' or max_right[1] != 'n':
+    elif max_right[1] != 'y' or max_right[1] != 'n'
+        while max_right[1] != 'y' or max_right[1] != 'n'
             print('Please enter y to set the max value, or n to try a new value.')
             max_right[1] = input('Do you want to store the current steering angle as the maximum right steering angle? y/n ')
 
@@ -62,13 +61,12 @@ while max_left[1] == 'n':
     kit.servo[1].angle = max_left[0] #publish the steering value to the car to observe the steering angle
     time.sleep(pause) #pause for "pause" seconds to allow the servo to move
     max_left[1] = input('Do you want to store this value as the maximum left steering angle? y/n')
-    if max_left[1] == 'y':
+    if max_left[1] = 'y':
         print('The maximum left steering angle has been set to: ',max_left[0])
         kit.servo[1].angle = 90 #set steering back to straight
         break
-    elif max_left[1] != 'y' or max_left[1] != 'n':
-        kit.servo[1].angle = 90 #set steering back to straight
-        while max_left[1] != 'y' or max_left[1] != 'n':
+    elif max_left[1] != 'y' or max_left[1] != 'n'
+        while max_left[1] != 'y' or max_left[1] != 'n'
             print('Please enter y to set the max value, or n to try a new value.')
             max_left[1] = input('Do you want to store the current steering angle as the maximum left steering angle? y/n ')
  
@@ -78,13 +76,12 @@ while straight[1] == 'n':
     kit.servo[1].angle = straight[0] #publish the steering value to the car to observe the steering angle
     time.sleep(pause) #pause for "pause" seconds to allow the servo to move
     straight[1] = input('Do you want to store this value as the straight steering angle? y/n')
-    if straight[1] == 'y':
+    if straight[1] = 'y':
         print('The straight steering angle has been set to: ',straight[0])
         kit.servo[1].angle = straight[0] #set steering back to straight
         break
-    elif straight[1] != 'y' or straight[1] != 'n':
-        kit.servo[1].angle = 90 #set steering back to straight
-        while straight[1] != 'y' or straight[1] != 'n':
+    elif straight[1] != 'y' or straight[1] != 'n'
+        while straight[1] != 'y' or straight[1] != 'n'
             print('Please enter y to set the max value, or n to try a new value.')
             straight[1] = input('Do you want to store the current steering angle as the straight steering angle? y/n ')
 
@@ -96,17 +93,17 @@ while straight[1] == 'n':
 
 # set neutral throttle
 while neutral_throttle[1] == 'n':
-    neutral_throttle[0] = input('Input a value near zero to search for the point at which the throttle is just at zero output: ')
+    neutral_throttle[0] = input('Input a value near zero to search for the point at which the throttle is at zero output: ')
     kit.continuous_servo[0].throttle = neutral_throttle[0] #publish the throttle value to the car for observation
     time.sleep(pause) #pause for "pause" seconds to allow the throttle to spin up
     neutral_throttle[1] = input('Do you want to store this value as the neutral throttle? y/n')
-    if neutral_throttle[1] == 'y':
+    if neutral_throttle[1] = 'y':
         print('The neutral throttle value has been set to: ',neutral_throttle[0])
         kit.continuous_servo[0].throttle = neutral_throttle[0] #set throttle back to neutral.
         break
-    elif neutral_throttle[1] != 'y' or neutral_throttle[1] != 'n':
+    elif neutral_throttle[1] != 'y' or neutral_throttle[1] != 'n'
         kit.continuous_servo[0].throttle = neutral_throttle[0] #set throttle back to neutral.
-        while neutral_throttle[1] != 'y' or neutral_throttle[1] != 'n':
+        while neutral_throttle[1] != 'y' or neutral_throttle[1] != 'n'
             print('Please enter y to set the neutral throttle value, or n to try a new value.')
             neutral_throttle[1] = input('Do you want to store the entered value as the neutral throttle? y/n ')
         
@@ -116,13 +113,13 @@ while max_throttle[1] == 'n':
     kit.continuous_servo[0].throttle = max_throttle[0] #publish the throttle value to the car for observation
     time.sleep(pause) #pause for "pause" seconds to allow the throttle to spin up
     max_throttle[1] = input('Do you want to store this value as the max throttle? y/n')
-    if max_throttle[1] == 'y':
+    if max_throttle[1] = 'y':
         print('The max throttle value has been set to: ',max_throttle[0])
         kit.continuous_servo[0].throttle = neutral_throttle[0] #set throttle back to neutral.
         break
-    elif max_throttle[1] != 'y' or max_throttle[1] != 'n':
+    elif max_throttle[1] != 'y' or max_throttle[1] != 'n'
         kit.continuous_servo[0].throttle = neutral_throttle[0] #set throttle back to neutral.
-        while max_throttle[1] != 'y' or max_throttle[1] != 'n':
+        while max_throttle[1] != 'y' or max_throttle[1] != 'n'
             print('Please enter y to set the neutral throttle value, or n to try a new value.')
             max_throttle[1] = input('Do you want to store the entered value as the max throttle? y/n ')
 
@@ -132,20 +129,20 @@ while reverse[1] == 'n':
     kit.continuous_servo[0].throttle = reverse[0] #publish the throttle value to the car for observation
     time.sleep(pause) #pause for "pause" seconds to allow the throttle to spin up
     reverse[1] = input('Do you want to store this value as the max reverse throttle? y/n')
-    if reverse[1] == 'y':
+    if reverse[1] = 'y':
         print('The max reverse throttle value has been set to: ',reverse[0])
         kit.continuous_servo[0].throttle = neutral_throttle[0] #set throttle back to neutral.
         break
-    elif reverse[1] != 'y' or reverse[1] != 'n':
+    elif reverse[1] != 'y' or reverse[1] != 'n'
         kit.continuous_servo[0].throttle = neutral_throttle[0] #set throttle back to neutral.
-        while reverse[1] != 'y' or reverse[1] != 'n':
+        while reverse[1] != 'y' or reverse[1] != 'n'
             print('Please enter y to set the max reverse throttle value, or n to try a new value.')
             reverse[1] = input('Do you want to store the entered value as the max reverse throttle? y/n ')
 
 decision = 'n'
 parent_path = os.path.dirname(os.getcwd()) #this assumes the script will be run from the .../scripts directory with the json file located in a directory, one directory above
 json_path = os.path.join(parent_path,'json_files','car_config.json')
-while decision == 'n'or decision != 'y': #write the calibration values to the text caliration file
+while decision == 'n'or decision ~= 'y': #write the calibration values to the text caliration file
     decision = input('Do you want to write these values to the car configuration text file? y/n?')
     if decision == 'y': 
         config_file = open(json_path,"w")

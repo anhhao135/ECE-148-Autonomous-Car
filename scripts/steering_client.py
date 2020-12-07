@@ -16,7 +16,6 @@ STEERING_TOPIC_NAME = 'steering'
 
 kit = ServoKit(channels = 16)
 
-global straight, max_right, max_left
 
 def callback(data): #called everytime topic is updated
     normalized_steering = data.data #this is a value between -1 and 1, with -1 being fully left and 1 being fully right
@@ -45,11 +44,13 @@ def calibration_values(): #used to retrieve the calibrated max L/R and straight 
     json_path = os.path.join(parent_path, 'json_files', 'car_config.json')
     f = open(json_path,"r") #open the car configuration file to get the most recent steering calibration values
     data = json.load(f)
+    global straight
     straight = data['straight']
+    global max_right
     max_right = data['max_right']
+    global max_left
     max_left = data['max_left']
 
 if __name__ == '__main__':
     calibration_values() #call calibration values first to load the appropriate steering calibration
-    time.sleep(1) #pause 1s to allow the values to be loaded by the calibration_values function
     listener()
