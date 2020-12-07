@@ -11,7 +11,7 @@ throttle_float = Float32()
 
 
 def LineFollower(msg):
-    K=40
+    K=1
     global steering_float, throttle_float
     steering_float = Float32()
     throttle_float = Float32()
@@ -26,7 +26,7 @@ def LineFollower(msg):
 
     # rospy.loginfo("mid_x = "+str(msg.data))
     
-    steering_float = float(K * (error_x / 400))
+    steering_float = float(K * (error_x / 200))
 
 
 def main():
