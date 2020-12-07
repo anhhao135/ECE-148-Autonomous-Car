@@ -27,7 +27,7 @@ def LineFollower(msg):
 
 
 def main():
-    rospy.init_node('line_following_node1', anonymous=True)
+    rospy.init_node('lane_guidance_node', anonymous=True)
     centroid_subscriber = rospy.Subscriber('/centroid', Int32, LineFollower)
     steering_pub = rospy.Publisher('steering', Float32, queue_size=1)
     throttle_pub = rospy.Publisher('throttle', Float32, queue_size=1)
