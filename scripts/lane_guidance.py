@@ -17,11 +17,14 @@ def LineFollower(msg):
     width = 600
     if (msg.data == 0):
         error_x = 0
+        throttle_float = 0.1
+        
     else:
         error_x = float((msg.data) - width / 2)
+        throttle_float = 0.3
 
     # rospy.loginfo("mid_x = "+str(msg.data))
-    throttle_float = 0.3
+    
     steering_float = float(-error_x / 100)
     return steering_float, throttle_float
 
