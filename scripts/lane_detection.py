@@ -17,10 +17,11 @@ def video_detection(data):
     frame = decodeImage(data.data, data.height, data.width)
     
     height, width, channels = frame.shape
+    frame = frame[50:height, 0:width]
 
-    translate = 0
-    rows_to_watch = 60
-    img = frame[(height)/2+translate:(height)/2 + (translate+rows_to_watch)][1:width]
+    #translate = 0
+    #rows_to_watch = 60
+    #img = frame[(height)/2+translate:(height)/2 + (translate+rows_to_watch)][1:width]
 
     img = cv2.resize(frame, (400, 300))
     orig = img.copy()
