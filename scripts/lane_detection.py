@@ -6,21 +6,23 @@ from std_msgs.msg import Int32
 from sensor_msgs.msg import Image
 from decoder import decodeImage
 
-global mid_x = Int32()
-global mid_y = Int32()
+global mid_x
+mid_x = Int32()
+global mid_y
+mid_y = Int32()
 
+pub = rospy.Publisher('/centroid', Int32, queue_size=1)
 
 def video_detection(data):
     frame = decodeImage(data.data, data.height, data.width)
     
     height, width, channels = frame.shape
 
-    translate = -20
-    rows_to_watch = 60
-    img = frame[(height)/2+translate:(height)/2 +
-                (translate+rows_to_watch)][1:width]
+    #translate = -20
+    #rows_to_watch = 60
+    #img = frame[(height)/2+translate:(height)/2 + (translate+rows_to_watch)][1:width]
 
-    img = cv2.resize(img, (300, 200))
+    img = cv2.resize(frame, (400, 300))
     orig = img.copy()
     # get rid of white noise from grass
 
@@ -34,8 +36,8 @@ def video_detection(data):
     # setting threshold limits for color filter
     # lower = np.array([36, 25, 25])
     # upper = np.array([70, 255,255])
-    lower = np.array([45, 50, 15])
-    upper = np.array([70, 255, 255])
+    lower = np.array([35, 0, 0])
+    upper = np.array([85, 255, 255])
 
     # creating mask
     mask = cv2.inRange(hsv, lower, upper)
@@ -52,7 +54,7 @@ def video_detection(data):
 
     # locating contours in image
     ret, thresh = cv2.threshold(blackAndWhiteImage, 127, 255, 0)
-    _, contours, _ = cv2.findContours(
+    contours, dummy = cv2.findContours(
         thresh, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
     centers = []
@@ -90,12 +92,20 @@ def video_detection(data):
         mid_y.data = cy_list[0]
         cv2.circle(img, (mid_x.data, mid_y.data), 7, (255, 0, 0), -1)
 
-    # plotting results
-    cv2.imshow("original", orig)
-    cv2.imshow("dilation", dilation)
-    cv2.imshow("blackAndWhiteImage", blackAndWhiteImage)
-    cv2.imshow("contours_img", img)
-    cv2.waitKey(1)
+    pub.publish(mid_x)
+    
+    try:
+
+        # plotting results
+        #cv2.imshow("original", orig)
+        #cv2.imshow("dilation", dilation)
+        cv2.imshow("blackAndWhiteImage", res)
+        cv2.imshow("contours_img", img)
+        cv2.waitKey(1)
+
+    except KeyboardInterrupt:
+        cv2.destroyAllWindows()
+
 
 
 def main():
@@ -103,17 +113,7 @@ def main():
     rospy.init_node('line_detection_node', anonymous=True)
     camera_sub = rospy.Subscriber('camera_rgb', Image, video_detection)
     rate = rospy.Rate(5)
-    while not rospy.is_shutdown():
-        # print(mid_x)
-        try:
-            # print("the dist is ", mid_x)
-            pub = rospy.Publisher('/centroid', Float32, queue_size=1)
-            pub.publish(mid_x)
-
-        except KeyboardInterrupt:
-            print("Shutting down")
-            cv2.destroyAllWindows()
-
+    rospy.spin()
 
 if __name__ == '__main__':
     main()
