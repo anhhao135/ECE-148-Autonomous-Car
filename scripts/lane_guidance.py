@@ -18,11 +18,18 @@ def LineFollower(msg):
     width = 400
     if (msg.data == 0):
         error_x = 0
-        throttle_float = 0.2
+        throttle_float = 0.3
         
     else:
         error_x = float((msg.data) - width / 2)
-        throttle_float = 0.3
+        throttle_float = 0.4
+
+    if (error_x < -1):
+        error_x =-1
+    elif (error_x > 1):
+        error_x = 1
+    else:
+        pass
 
     # rospy.loginfo("mid_x = "+str(msg.data))
     
