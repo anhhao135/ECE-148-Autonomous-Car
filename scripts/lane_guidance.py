@@ -22,7 +22,7 @@ def LineFollower(msg):
         
     else:
         error_x = float((msg.data) - width / 2)
-        throttle_float = 0.4
+        throttle_float = 0.35
 
     # rospy.loginfo("mid_x = "+str(msg.data))
     
