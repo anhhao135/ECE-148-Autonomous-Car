@@ -4,6 +4,7 @@ from std_msgs.msg import Float32
 from adafruit_servokit import ServoKit
 import json
 import os
+import time
 
 THROTTLE_NODE_NAME = 'throttle_client'
 THROTTLE_TOPIC_NAME = 'throttle'
@@ -13,8 +14,6 @@ THROTTLE_TOPIC_NAME = 'throttle'
 # throttle servo is on channel 0
 
 kit = ServoKit(channels=16)
-
-global max_throttle, neutral_throttle, reverse
 
 throttle_scale = 0.2  # scale down sensitive throttle
 
@@ -48,6 +47,7 @@ def calibration_values(): #used to retrieve the calibrated throttle values
     f = open(json_path,"r") #open the car configuration file to get the most recent steering calibration values
     data = json.load(f)
     #assign the throttle values to be used by the throttle client script
+    global max_throttle, neutral_throttle, reverse
     max_throttle = data['max_throttle']
     neutral_throttle = data['neutral_throttle']
     reverse = data['reverse']

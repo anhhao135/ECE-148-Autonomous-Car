@@ -4,6 +4,7 @@ from std_msgs.msg import Float32
 from adafruit_servokit import ServoKit
 import json
 import os
+import time
 
 STEERING_NODE_NAME = 'steering_client'
 STEERING_TOPIC_NAME = 'steering'
@@ -15,8 +16,6 @@ STEERING_TOPIC_NAME = 'steering'
 
 
 kit = ServoKit(channels = 16)
-
-global straight, max_right, max_left
 
 def callback(data): #called everytime topic is updated
     normalized_steering = data.data #this is a value between -1 and 1, with -1 being fully left and 1 being fully right
@@ -45,6 +44,7 @@ def calibration_values(): #used to retrieve the calibrated max L/R and straight 
     json_path = os.path.join(parent_path, 'json_files', 'car_config.json')
     f = open(json_path,"r") #open the car configuration file to get the most recent steering calibration values
     data = json.load(f)
+    global straight, max_right, max_left
     straight = data['straight']
     max_right = data['max_right']
     max_left = data['max_left']
