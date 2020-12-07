@@ -110,7 +110,7 @@ def video_detection(data):
 
 def main():
 
-    rospy.init_node('line_detection_node', anonymous=True)
+    rospy.init_node('lane_detection_node', anonymous=True)
     camera_sub = rospy.Subscriber('camera_rgb', Image, video_detection)
     rate = rospy.Rate(5)
     rospy.spin()
