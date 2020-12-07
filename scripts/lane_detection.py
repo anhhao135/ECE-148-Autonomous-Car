@@ -17,6 +17,7 @@ def video_detection(data):
     frame = decodeImage(data.data, data.height, data.width)
     
     height, width, channels = frame.shape
+    frame = frame[200:height, 0:width]
 
     #translate = 0
     #rows_to_watch = 60
