@@ -11,7 +11,7 @@ throttle_float = Float32()
 
 
 def LineFollower(msg):
-    K=1
+    K=0.5
     global steering_float, throttle_float
     steering_float = Float32()
     throttle_float = Float32()
