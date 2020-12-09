@@ -21,6 +21,10 @@ A ROS package using openCV on an RC car to do autonomous laps around a track usi
   - [Topics](#topics)
   - [Issues and Fixes](#issues-and-fixes)
 
+## Wiring Schematic
+
+![Wiring schematic](schematic.png "Wiring Schematic")
+
 ## Dependencies
 
 ### [cv2](https://opencv.org/)
