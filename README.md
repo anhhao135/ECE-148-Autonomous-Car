@@ -19,6 +19,7 @@ A ROS package using openCV on an RC car to do autonomous laps around a track usi
       - [**lane_detection_node**](#lane_detection_node)
       - [**lane_guidance_node**](#lane_guidance_node)
     - [Topics](#topics)
+  - [Issues & Fixes](#issue_and_fixes)
 
 ## Dependencies
 
@@ -28,7 +29,15 @@ Description TBD
 
 ### [adafruit_servokit](https://circuitpython.readthedocs.io/projects/servokit/en/latest/)
 
+
+### [cv_bridge](http://wiki.ros.org/cv_bridge)
+
 Description TBD
+
+### [simple-pid](https://pypi.org/project/simple-pid/)
+
+Description TBD
+
 ## Structure
 
 ### Nodes
@@ -71,7 +80,7 @@ Associated file: lane_guidance.py
 Subscribes to [centroid](#topic_centroid) topic.
 Publishes to [throttle](#topic_thorttle) and [steering](#topic_steering) topics.
 
-### Topics
+## Topics
 
 | Name                                  | Msg Type                  | Info                                              |
 | ------------------------------------- | --------------------- | ------------------------------------------------- |
@@ -79,3 +88,7 @@ Publishes to [throttle](#topic_thorttle) and [steering](#topic_steering) topics.
 | <a id="topic_steering">steering</a>| std_msgs.msg.Float32  | Float value from -1 to 1 for controlling steering |
 | camera_rgb                            | sensor_msgs.msg.Image | Image last read from USB camera |
 | centroid                              | std_msgs.msg.Int32    | Integer for x coordinate of centroid in camera image space |
+
+## Issues and Fixes
+
+
