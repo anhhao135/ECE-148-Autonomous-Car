@@ -2,8 +2,10 @@
 
 A ROS package using OpenCV on an RC car to do autonomous laps around a track using line following algorithms.
 
-![Yeet](tokyo-drift.jpeg "Our car")
 
+<p align="center">
+  <img src="tokyo-drift.jpeg">
+</p>
 
 ## Table of Contents
 
