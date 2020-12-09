@@ -4,7 +4,7 @@ A ROS package using OpenCV on an RC car to do autonomous laps around a track usi
 
 
 <p align="center">
-  <img width="460" height="300" src="tokyo-drift.jpeg">
+  <img src="tokyo-drift.jpeg">
 </p>
 
 ## Table of Contents
