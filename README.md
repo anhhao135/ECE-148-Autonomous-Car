@@ -6,6 +6,7 @@ A ROS package using openCV on an RC car to do autonomous laps around a track usi
 
 - [potatoInside](#potatoinside)
   - [Table of Contents](#table-of-contents)
+  - [Wiring Schematic](#wiring-schematic)
   - [Dependencies](#dependencies)
     - [cv2](#cv2)
     - [adafruit_servokit](#adafruit_servokit)
@@ -61,7 +62,7 @@ This node is also responsible for reading and setting the throttle calibration v
 Associated file: steering_client.py
 
 Similar to [throttle_client](#throttle_client), this node subscribes to the [steering](#Topics)
-topic and pass the singals to the hardware.
+topic and pass the signals to the hardware. The steering servo is on **channel 1**.
 
 #### **camera_server**
 
@@ -95,5 +96,9 @@ based on the centroid value, and then publish them to their corresponding topics
 | centroid   | std_msgs.msg.Int32    | Integer for x coordinate of centroid in camera image space |
 
 ## Issues and Fixes
+
+### **cv_bridge conversion from Image message to OpenCV image**
+
+Using **bridge_object.imgmsg_to_cv2()** threw errors on our Jetson Nano environment, so we had to resort to our own image decoder function. Function **decodeImage()** can be imported from **decoder.py**.
 
 
