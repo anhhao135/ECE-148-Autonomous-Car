@@ -24,6 +24,7 @@ A ROS package using OpenCV on an RC car to do autonomous laps around a track usi
       - [**camera_server**](#camera_server)
       - [**lane_detection_node**](#lane_detection_node)
       - [**lane_guidance_node**](#lane_guidance_node)
+    - [Calibration](#calbration)
   - [Topics](#topics)
   - [Issues and Fixes](#issues-and-fixes)
 
@@ -94,6 +95,11 @@ based on the centroid value, and then publish them to their corresponding topics
 Throttle is based on whether or not a centroid exists - car goes faster when centroid is present and slows down when there is none.
 
 Steering is based on a PID controller implemented by the [simple-pid](#simple-pid) module. Gains can be tweaked in the **lane_guidance.py** script.
+
+## Calibration
+
+
+
 ## Topics
 
 | Name       | Msg Type              | Info                                                       |
