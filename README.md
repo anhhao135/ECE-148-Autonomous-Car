@@ -14,8 +14,8 @@ A ROS package using openCV on an RC car to do autonomous laps around a track usi
       - [**throttle_client**](#throttle_client)
       - [**steering_client**](#steering_client)
       - [**camera_server**](#camera_server)
-      - [**(line detection node)**](#line-detection-node)
-      - [**(line following node)**](#line-following-node)
+      - [**lane_detection_node**](#lane_detection_node)
+      - [**lane_guidance_node**](#lane_guidance_node)
     - [Topics](#topics)
 
 ## Dependencies
@@ -35,41 +35,46 @@ Description TBD
 
 Associated file: throttle_client.py
 
-Subscribe to [throttle](#topic_throttle) topic, uses the
-[adafruit_servokit](#adafruit_servokit) module on **channel 0** for sending
-signals to the servo.
+This node subscribes to the [throttle](#Topics) topic. We use subscriber callback function
+to validate and normalize throttle value, and then use the [adafruit_servokit](#adafruit_servokit)
+module on **channel 0** for sending signals to the hardware.
+
+This node is also responsible for reading and setting the throttle calibration values.
 
 #### **steering_client**
 
 Associated file: steering_client.py
 
-Subscribe to [steering](#topic_steering) topic, uses the
-[adafruit_servokit](#adafruit_servokit) module on **channel 1** for sending
-signals to the servo.
+Similar to [throttle_client](#throttle_client), this node subscribes to the [steering](#Topics)
+topic and pass the singals to the hardware.
 
 #### **camera_server**
 
 Associated file: camera_server.py
 
-TODO
+This node simply reads from the camera with cv2's interface and publish the image to the
+[camera_rgb](#Topics) topic.
 
-#### **(line detection node)**
+#### **lane_detection_node**
 
-Associated file: TBD.py
+Associated file: lane_detection.py
 
-TODO
+In this node, we read from [camera_rgb](#Topics) topic and use opencv to identify line
+information from the image, and publish the information of the middle point between
+all identified lines to the [centroid](#Topics) topic.
 
-#### **(line following node)**
+#### **lane_guidance_node**
 
-Associated file: TBD.py
+Associated file: lane_guidance.py
 
-TODO
+This node subscribes to the [centroid](#Topics) topic, calculates the throttle and steering
+based on the centroid value, and then publish them to their corresponding topics.
 
 ### Topics
 
-| Name                                  | Msg Type                  | Info                                              |
-| ------------------------------------- | --------------------- | ------------------------------------------------- |
-| <a id="topic_throttle"></a> throttle  | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling throttle |
-| <a name="topic_throttle"></a>steering | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling steering |
-| camera_rgb                            | sensor_msgs.msg.Image |                                                   |
-| centroid                              | std_msgs.msg.???      |
+| Name       | Msg Type              | Info                                                                            |
+| ---------- | --------------------- | ------------------------------------------------------------------------------- |
+| throttle   | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling throttle                               |
+| steering   | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling steering                               |
+| camera_rgb | sensor_msgs.msg.Image | Camera image                                                                   |
+| centroid   | std_msgs.msg.Int32    | Int value indicating the the x value of the  middle point of all lines detected |
