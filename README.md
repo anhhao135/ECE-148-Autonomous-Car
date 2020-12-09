@@ -53,15 +53,15 @@ Associated file: camera_server.py
 
 TODO
 
-#### **(line detection node)**
+#### **lane_detection_node**
 
-Associated file: TBD.py
+Associated file: lane_detection.py
 
 TODO
 
-#### **(line following node)**
+#### **lane_guidance_node**
 
-Associated file: TBD.py
+Associated file: lane_guidance.py
 
 TODO
 
@@ -71,5 +71,5 @@ TODO
 | ------------------------------------- | --------------------- | ------------------------------------------------- |
 | <a id="topic_throttle"></a> throttle  | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling throttle |
 | <a name="topic_throttle"></a>steering | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling steering |
-| camera_rgb                            | sensor_msgs.msg.Image |                                                   |
-| centroid                              | std_msgs.msg.???      |
+| camera_rgb                            | sensor_msgs.msg.Image | Image last read from USB camera |
+| centroid                              | std_msgs.msg.Int32    | Integer for x coordinate of centroid in camera image space |
