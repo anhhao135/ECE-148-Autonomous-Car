@@ -86,6 +86,9 @@ Associated file: lane_guidance.py
 This node subscribes to the [centroid](#Topics) topic, calculates the throttle and steering
 based on the centroid value, and then publish them to their corresponding topics.
 
+Throttle is based on whether or not a centroid exists - car goes faster when centroid is present and slows down when there is none.
+
+Steering is based on a PID controller implemented by the [simple-pid](#simple-pid) module. Gains can be tweaked in the **lane_guidance.py** script.
 ## Topics
 
 | Name       | Msg Type              | Info                                                       |
