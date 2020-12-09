@@ -9,6 +9,8 @@ A ROS package using openCV on an RC car to do autonomous laps around a track usi
   - [Dependencies](#dependencies)
     - [cv2](#cv2)
     - [adafruit_servokit](#adafruit_servokit)
+    - [cv_bridge](#cv_bridge)
+    - [simple-pid](#simple-pid)
   - [Structure](#structure)
     - [Nodes](#nodes)
       - [**throttle_client**](#throttle_client)
@@ -16,7 +18,8 @@ A ROS package using openCV on an RC car to do autonomous laps around a track usi
       - [**camera_server**](#camera_server)
       - [**lane_detection_node**](#lane_detection_node)
       - [**lane_guidance_node**](#lane_guidance_node)
-    - [Topics](#topics)
+  - [Topics](#topics)
+  - [Issues and Fixes](#issues-and-fixes)
 
 ## Dependencies
 
@@ -26,7 +29,15 @@ Description TBD
 
 ### [adafruit_servokit](https://circuitpython.readthedocs.io/projects/servokit/en/latest/)
 
+
+### [cv_bridge](http://wiki.ros.org/cv_bridge)
+
 Description TBD
+
+### [simple-pid](https://pypi.org/project/simple-pid/)
+
+Description TBD
+
 ## Structure
 
 ### Nodes
@@ -70,11 +81,15 @@ Associated file: lane_guidance.py
 This node subscribes to the [centroid](#Topics) topic, calculates the throttle and steering
 based on the centroid value, and then publish them to their corresponding topics.
 
-### Topics
+## Topics
 
-| Name       | Msg Type              | Info                                                                            |
-| ---------- | --------------------- | ------------------------------------------------------------------------------- |
-| throttle   | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling throttle                               |
-| steering   | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling steering                               |
-| camera_rgb | sensor_msgs.msg.Image | Camera image                                                                   |
-| centroid   | std_msgs.msg.Int32    | Int value indicating the the x value of the  middle point of all lines detected |
+| Name       | Msg Type              | Info                                                       |
+| ---------- | --------------------- | ---------------------------------------------------------- |
+| throttle   | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling throttle          |
+| steering   | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling steering          |
+| camera_rgb | sensor_msgs.msg.Image | Image last read from USB camera image                      |
+| centroid   | std_msgs.msg.Int32    | Integer for x coordinate of centroid in camera image space |
+
+## Issues and Fixes
+
+
