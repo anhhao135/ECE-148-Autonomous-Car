@@ -14,8 +14,8 @@ A ROS package using openCV on an RC car to do autonomous laps around a track usi
       - [**throttle_client**](#throttle_client)
       - [**steering_client**](#steering_client)
       - [**camera_server**](#camera_server)
-      - [**(line detection node)**](#line-detection-node)
-      - [**(line following node)**](#line-following-node)
+      - [**lane_detection_node**](#lane_detection_node)
+      - [**lane_guidance_node**](#lane_guidance_node)
     - [Topics](#topics)
 
 ## Dependencies
@@ -35,7 +35,7 @@ Description TBD
 
 Associated file: throttle_client.py
 
-Subscribe to [throttle](#topic_throttle) topic, uses the
+Subscribes to [throttle](#topic_throttle) topic. Uses the
 [adafruit_servokit](#adafruit_servokit) module on **channel 0** for sending
 signals to the servo.
 
@@ -43,7 +43,7 @@ signals to the servo.
 
 Associated file: steering_client.py
 
-Subscribe to [steering](#topic_steering) topic, uses the
+Subscribes to [steering](#topic_steering) topic. Uses the
 [adafruit_servokit](#adafruit_servokit) module on **channel 1** for sending
 signals to the servo.
 
@@ -51,7 +51,7 @@ signals to the servo.
 
 Associated file: camera_server.py
 
-TODO
+Publishes to [camera_rgb](#topic_camera_rgb) topic.
 
 #### **lane_detection_node**
 
@@ -69,7 +69,7 @@ TODO
 
 | Name                                  | Msg Type                  | Info                                              |
 | ------------------------------------- | --------------------- | ------------------------------------------------- |
-| <a id="topic_throttle"></a> throttle  | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling throttle |
-| <a name="topic_throttle"></a>steering | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling steering |
+| <a id="topic_throttle">throttle</a>   | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling throttle |
+| <a id="topic_steering">steering</a>| std_msgs.msg.Float32  | Float value from -1 to 1 for controlling steering |
 | camera_rgb                            | sensor_msgs.msg.Image | Image last read from USB camera |
 | centroid                              | std_msgs.msg.Int32    | Integer for x coordinate of centroid in camera image space |
