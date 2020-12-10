@@ -29,6 +29,7 @@ A ROS package using OpenCV on an RC car to do autonomous laps around a track usi
       - [**lane_guidance_node**](#lane_guidance_node)
     - [Calibration](#calbration)
   - [Topics](#topics)
+  - [Launch](#launch)
   - [Issues and Fixes](#issues-and-fixes)
 
 ## Wiring Schematic
@@ -56,6 +57,10 @@ Simple PID is a Python library that provides a way to turn a PID controller into
 ## Environment Configuration
 
 If you are running a ROS version that defaults to Python3, you can install the dependencies to the host Python3 or some virtual environment such as Conda. However, ROS versions that default to Python2 will require a virtual environment that has Python3 as the Python PATH i.e. if you type "python" into the terminal Python3 should begin. 
+
+<hr>
+
+Clone this repo to the **src** of your Catkin workspace. Then, go to the workspace directory and do **catkin_make**. This should register the package as part of your ROS environment. You can check by looking for the package name with **rospack**.
 
 ## Structure
 
@@ -125,6 +130,11 @@ Steering is based on a PID controller implemented by the [simple-pid](#simple-pi
 | steering   | std_msgs.msg.Float32  | Float value from -1 to 1 for controlling steering          |
 | camera_rgb | sensor_msgs.msg.Image | Image last read from USB camera image                      |
 | centroid   | std_msgs.msg.Int32    | Integer for x coordinate of centroid in camera image space |
+
+## Launch
+
+Launching the package is as simple as **roslaunch potatoinside potato.launch**. This should begin all the necessary nodes and get the car moving.
+
 
 ## Issues and Fixes
 
