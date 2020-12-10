@@ -144,3 +144,8 @@ It can be that the lower and upper HSV ranges configured in **lane_detection.py*
 Most USB cameras have minds of their own. Essentially, it can do its own processing independent from cv2 like constrast, saturation, and more importantly auto exposure. Adapting to the ambient light means certain HSV ranges may not apply when lighting changes, messing up algorithms. To combat this, you would need to configure your USB camera to manual exposure, ensuring that your HSV range is consistent everywhere. To do this, follow <a href="https://www.kurokesu.com/main/2016/01/16/manual-usb-camera-settings-in-linux/">this</a> page for more information on how to access camera variables via Linux terminal.
 
 
+### **Steering/throttle is too hard or too soft**
+
+You would need to tune the PID control gains of both steering and throttle via **lane_guidance.py**. This can be done by simply playing around with the constants. Caution is needed when altering the throttle values since too high of throttle draw too much current, shutting down all other electronics on the car including the Jetson. To avoid this, do **rostopic pub throttle** and publish incremental values starting from 0 to the throttle topic to guage the "right" range.
+
+
