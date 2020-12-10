@@ -19,6 +19,7 @@ A ROS package using OpenCV on an RC car to do autonomous laps around a track usi
     - [adafruit_servokit](#adafruit_servokit)
     - [cv_bridge](#cv_bridge)
     - [simple-pid](#simple-pid)
+  - [Environment Configuration](#environment-configuration)
   - [Structure](#structure)
     - [Nodes](#nodes)
       - [**throttle_client**](#throttle_client)
@@ -51,6 +52,10 @@ CV Bridge provides functions to easily convert (encode/decode) in between ROS im
 ### [simple-pid](https://pypi.org/project/simple-pid/)
 
 Simple PID is a Python library that provides a way to turn a PID controller into a simplified Python object.
+
+## Environment Configuration
+
+If you are running a ROS version that defaults to Python3, you can install the dependencies to the host Python3 or some virtual environment such as Conda. However, ROS versions that default to Python2 will require a virtual environment that has Python3 as the Python PATH i.e. if you type "python" into the terminal Python3 should begin. 
 
 ## Structure
 
@@ -148,4 +153,7 @@ Most USB cameras have minds of their own. Essentially, it can do its own process
 
 You would need to tune the PID control gains of both steering and throttle via **lane_guidance.py**. This can be done by simply playing around with the constants. Caution is needed when altering the throttle values since too high of throttle draw too much current, shutting down all other electronics on the car including the Jetson. To avoid this, do **rostopic pub throttle** and publish incremental values starting from 0 to the throttle topic to guage the "right" range.
 
+### **ROS version is not compatible with Python3**
+
+This can be solved with virtual environments such as Conda. Simply make sure all terminals opened are sourced to that environment. This can be automated by editing **bashrc**. To check, type in "python" in the terminal; some terminal version of Python3 should begin.
 
