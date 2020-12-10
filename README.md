@@ -20,6 +20,7 @@ A ROS package using OpenCV on an RC car to do autonomous laps around a track usi
     - [cv_bridge](#cv_bridge)
     - [simple-pid](#simple-pid)
   - [Environment Configuration](#environment-configuration)
+  - [Package Map](#package-map)
   - [Structure](#structure)
     - [Nodes](#nodes)
       - [**throttle_client**](#throttle_client)
@@ -61,6 +62,9 @@ If you are running a ROS version that defaults to Python3, you can install the d
 <hr>
 
 Clone this repo to the **src** of your Catkin workspace. Then, go to the workspace directory and do **catkin_make**. This should register the package as part of your ROS environment. You can check by looking for the package name with **rospack**.
+
+## Package Map
+<img src="ros_overview.png">
 
 ## Structure
 
