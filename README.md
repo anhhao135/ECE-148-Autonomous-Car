@@ -85,23 +85,24 @@ This node is also responsible for reading and setting the throttle calibration v
 Associated file: steering_client.py
 
 Similar to [throttle_client](#throttle_client), this node subscribes to the [steering](#Topics)
-topic and pass the signals to the hardware. The steering servo is on **channel 1**.
+topic and passes the signals to the hardware. The steering servo is on **channel 1**.
 
 <hr>
 
 The ServoKit class from the adafruit_servokit library proved to be a simple way to control both our steering servo and drive motor, acting as the interface between user specified steering angles and throttle values and the PWM (Pulse Width Modulation) signal required by the steering servo and drive motor ESC. Our team utilized both the servo and continuous_servo methods of the ServoKit class. The implementation of these can be found in the throttle_client.py and steering_client.py scripts, as well as in potato_calibration.py.
 
-The servo method (without any modifications from stock) accepts user inputs in range [0:180] degrees. Zero corresponds to full left and 180 corresponds to full right steering. Within the ServoKit class these things (0 and 180) correspond to the minimum and maximum pulse widths sent by the PWM board to the servo motor corresponding to a 1ms to 2ms PWM pulse width range, respectively. Servos standardly are at 0 degrees with a 1ms pulse width and 180 degrees with a 2ms pulse width, with the pulses occuring at a frequency of 50Hz. If for some reason the max steering angle is not achieved when one feeds the ServoKit class a value of 180, the maximum pulse with can be increased beyone the stock value given to the class (standard range is 1000 micro-seconds to 2000 micro-seconds). In the documentation there is also a function to edit the max actuation range, allowing the user to change the max steering value from the stock 180 degrees to a different value.
+The servo method (without any modifications from stock) accepts user inputs in range [0:180] degrees. Zero corresponds to full left and 180 corresponds to full right steering. Within the ServoKit class 0 and 180 correspond to the minimum and maximum pulse widths sent by the PWM board to the servo motor corresponding to a 1ms to 2ms PWM pulse width range, respectively. Servos standardly are at 0 degrees with a 1ms pulse width and 180 degrees with a 2ms pulse width, with the pulses occuring at a frequency of 50Hz. If for some reason the max steering angle is not achieved when one feeds the ServoKit class a value of 180, the maximum pulse with can be increased beyone the stock value given to the class (standard range is 1000 micro-seconds to 2000 micro-seconds). In the documentation there is also a function to edit the max actuation range, allowing the user to change the max steering value from the stock 180 degrees to a different value.
 
-The continuous_servo method allows for control of an ESC driven DC motor, designed for continuous rotation (compare to a standard servo motor which has a finite range of motion). The input range for this method is [-1:1], with -1 corresponding to the maximum reverse PWM output and 1 corresponding to the maximum forward throttle value. The throttle range for our car was very small before making any changes to the PWM pulse widths. Outputs ranging from no throttle to what appeared to be close to 100% throttle were contained in the range [.28:.3]. As of 12/8/2020 we have not explored calibration of this throttle range.
+The continuous_servo method allows for control of an ESC driven DC motor, designed for continuous rotation (compare to a standard servo motor which has a finite range of motion). The input range for this method is [-1:1], with -1 corresponding to the maximum reverse PWM output and 1 corresponding to the maximum forward throttle value. The throttle range for our car was very small before making any changes to the PWM pulse widths. Outputs ranging from no throttle to what appeared to be close to 100% throttle were contained in the range [.28:.3].
 
 
 #### **camera_server**
 
 Associated file: camera_server.py
 
-This node simply reads from the camera with cv2's interface and publish the image to the
-[camera_rgb](#Topics) topic.
+This node simply reads from the camera with cv2's interface and publishes the image to the
+[camera_rgb](#Topics) topic. Before publishing, the image is reformatted from the cv image format
+so it can be passed through the ROS topic message structure.
 
 #### **lane_detection_node**
 
@@ -130,6 +131,17 @@ Steering is based on a PID controller implemented by the [simple-pid](#simple-pi
 
 ## Calibration
 
+Associated file: potato_calibration.py
+
+A calibration script was created to allow the driver to ensure that the software commands that are sent to the hardware are both within the hardware
+limitations, as well as accurately mapped to hardware actuation.
+
+This script utilizes the servokit class from the adafruit_servokit library to send steering and throttle commands to the car to be observed by the user. The
+script contains of a sequence of prompts, asking the user to input steering and throttle values that correspond to maximums, minimums and straight/neutral
+values. At the end of the script the user can choose to save these values to a configuration file that will be read when the steering and throttle nodes are
+launched.
+
+*Dicsuss the beginning of the script where the user can decide PWM values for the max and min servo actuation. Also need to test to see if this works with the continuous_servo class.
 
 
 ## Topics
