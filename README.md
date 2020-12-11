@@ -111,6 +111,12 @@ In this node, we read from [camera_rgb](#Topics) topic and use opencv to identif
 information from the image, and publish the information of the middle point between
 all identified lines to the [centroid](#Topics) topic.
 
+<div>
+  <img src="filtering_process.png">
+  <img src="applying_methods.png">
+  <img src="applying_logic.png">
+</div>
+
 #### **lane_guidance_node**
 
 Associated file: lane_guidance.py
