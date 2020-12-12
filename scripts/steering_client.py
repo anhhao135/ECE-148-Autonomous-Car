@@ -20,9 +20,15 @@ kit = ServoKit(channels = 16)
 
 def callback(data): #called everytime topic is updated
     normalized_steering = data.data #this is a value between -1 and 1, with -1 being fully left and 1 being fully right
-    #rospy.loginfo(data.data) # just for debug
-    angle_delta = normalized_steering * 180 #difference in degrees from the center 90 degrees
-    kit.servo[1].angle = 90 + angle_delta  # add that difference to 90 to find the absolute degree steering; 0 is full left, 1 is full right.
+    rospy.loginfo(data.data) # just for debug
+    if normalized_steering < 0:
+        angle_delta =  -1*(max_left - straight) * normalized_steering #maps the left turn value from 0 to -1 to the max left value allowed for the kit.servo object
+    elif normalized_steering == 0:
+        angle_delta = 0
+    else:
+        angle_delta =  (max_right - straight) * normalized_steering #maps the left turn value from 0 to -1 to the max left value allowed for the kit.servo object
+   
+    kit.servo[1].angle = straight + angle_delta  # add that difference to 90 to find the absolute degree steering; 0 is full left, 1 is full right.
 
 def listener():
     # In ROS, nodes are uniquely named. If two nodes with the same
