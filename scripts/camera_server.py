@@ -21,7 +21,7 @@ def talker():
 
     while not rospy.is_shutdown():
         ret, frame = cv2_video_capture.read()
-
+        
         # construct msg
         bridge = CvBridge()
         rgb = bridge.cv2_to_imgmsg(frame)
