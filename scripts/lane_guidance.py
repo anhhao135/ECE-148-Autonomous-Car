@@ -3,11 +3,16 @@ import rospy
 import cv2
 import numpy as np
 from std_msgs.msg import Float32, Int32
+from simple_pid import PID
 
+
+pid = PID(1, 0.1, 0.05, setpoint=0)
 
 global steering_float, throttle_float
 steering_float = Float32()
 throttle_float = Float32()
+
+
 
 
 def LineFollower(msg):
@@ -26,9 +31,15 @@ def LineFollower(msg):
         throttle_float = 0.14
 
     # rospy.loginfo("mid_x = "+str(msg.data))
+
+    steering_float = pid(error_x / 200) #pass in normalized x error from center
     
+<<<<<<< HEAD
     steering_float = float(K * (error_x / (width /2)))
     if (steering_float < -1):
+=======
+    if (steering_float < -1): #cap output between -1 and 1
+>>>>>>> 69ec4fe6428f6f36a838a6e3f14f35f44caf4cde
         steering_float =-1
     elif (steering_float > 1):
         steering_float = 1
