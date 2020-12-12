@@ -2,13 +2,8 @@
 import rospy
 from std_msgs.msg import Float32
 from adafruit_servokit import ServoKit
-<<<<<<< HEAD
 import os
 import json
-=======
-import json
-import os
->>>>>>> 69ec4fe6428f6f36a838a6e3f14f35f44caf4cde
 import time
 
 STEERING_NODE_NAME = 'steering_client'
@@ -24,11 +19,11 @@ kit = ServoKit(channels = 16)
 
 def callback(data): #called everytime topic is updated
     normalized_steering = data.data #this is a value between -1 and 1, with -1 being fully left and 1 being fully right
-<<<<<<< HEAD
+
     #rospy.loginfo(data.data) # just for debug
     angle_delta = normalized_steering * 180 #difference in degrees from the center 90 degrees
     kit.servo[1].angle = 90 + angle_delta  # add that difference to 90 to find the absolute degree steering; 0 is full left, 1 is full right.
-=======
+
     rospy.loginfo(data.data) # just for debug
     if normalized_steering < 0:
         angle_delta =  -1*(max_left - straight) * normalized_steering #maps the left turn value from 0 to -1 to the max left value allowed for the kit.servo object
@@ -38,7 +33,7 @@ def callback(data): #called everytime topic is updated
         angle_delta =  (max_right - straight) * normalized_steering #maps the left turn value from 0 to -1 to the max left value allowed for the kit.servo object
    
     kit.servo[1].angle = straight + angle_delta  # add that difference to 90 to find the absolute degree steering; 0 is full left, 1 is full right.
->>>>>>> 69ec4fe6428f6f36a838a6e3f14f35f44caf4cde
+
 
 def listener():
     # In ROS, nodes are uniquely named. If two nodes with the same
@@ -59,18 +54,9 @@ def calibration_values(): #used to retrieve the calibrated max L/R and straight 
     straight = data['straight']
     max_right = data['max_right']
     max_left = data['max_left']
-<<<<<<< HEAD
-    print(straight)
-    print(max_right)
-    print(max_left)
-=======
->>>>>>> 69ec4fe6428f6f36a838a6e3f14f35f44caf4cde
 
 if __name__ == '__main__':
     calibration_values() #call calibration values first to load the appropriate steering calibration
     time.sleep(1) #pause 1s to allow the values to be loaded by the calibration_values function
-<<<<<<< HEAD
+
     listener()
-=======
-    listener()
->>>>>>> 69ec4fe6428f6f36a838a6e3f14f35f44caf4cde
